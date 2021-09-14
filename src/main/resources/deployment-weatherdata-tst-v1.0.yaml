@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weatherdata-v1.0
+  namespace: weatherdata-testing
+  labels:
+    app: weatherdata
+    version: "1.0"
+    environment: testing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: weatherdata
+      version: "1.0"
+      environment: testing
+  template:
+    metadata:
+      labels:
+        app: weatherdata
+        version: "1.0"
+        environment: testing
+    spec:
+      containers:
+      - name: weatherdata-v1-0-container
+        image: onkarsarkate/weatherdata:latest
+        env:
+        - name: spring.profiles.active
+          value: "testing"
+        - name: spring.datasource.url
+          value: "jdbc:mysql://mysql-service.weatherdata-testing/assignmentisv?allowPublicKeyRetrieval=true&useSSL=false"
+        ports:
+        - containerPort: 9091

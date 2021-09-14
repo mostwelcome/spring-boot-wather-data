@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  myapp-mysql:
+    image: mysql:5.6
+    restart: always
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8192a42f67c939cf3fe52ab45abaf85fb7121e76
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=assignmentisv
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3308:3306
+  weather-data-container:
+   build: .
+   restart: on-failure
+   depends_on:
+     - myapp-mysql
+   ports:
+     - 8080:8080
+   environment:
+     - DATABASE_HOST=myapp-mysql
+     - DATABASE_USER=root
+     - DATABASE_PASSWORD=root
+     - DATABASE_NAME=assignmentisv
+     - DATABASE_PORT=3306
